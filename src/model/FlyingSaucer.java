@@ -68,10 +68,7 @@ public class FlyingSaucer extends GameFigure {
             }
         }
     }
-     @Override
-    public void declareState() {
-        state = GameFigureState.UFO_STATE_DAMAGED;
-    }
+
  public Rectangle2D getCollisionBox(){
         return new Rectangle2D.Float(x - (float)WIDTH/2, y - (float)HEIGHT/2, (float)WIDTH, (float)HEIGHT);
     }

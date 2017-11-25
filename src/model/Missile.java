@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -21,7 +22,8 @@ public class Missile extends GameFigure {
     private static final int UNIT_TRAVEL_DISTANCE = 4; // per frame move
 
     private int size = SIZE;
-
+    public State myState = new AliveState();
+    
     /**
      *
      * @param sx start x of the missile
@@ -79,18 +81,15 @@ public class Missile extends GameFigure {
             }
         } else if (state == GameFigureState.MISSILE_STATE_EXPLODED) {
             if (size >= MAX_EXPLOSION_SIZE) {
-                state = GameFigureState.STATE_DONE;
+                Main.gameData.removeFriendFigures.add(this);
             }
         }
     }
-     @Override
-    public void declareState() {
-        state = GameFigureState.STATE_DONE;
-    }
+
  public Rectangle2D getCollisionBox()
-    {
-        return new Rectangle2D.Float(x - size / 2, y - size / 2, size, size);
-    }
+{
+    return new Rectangle2D.Float(x - size / 2, y - size / 2, size, size);
+}
 
    
  

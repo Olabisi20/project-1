@@ -14,24 +14,33 @@ public class KeyController extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
         
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                if (shooter.x >0)
-                shooter.translate(-5, 0);
-                break;
-            case KeyEvent.VK_RIGHT:
-                if (shooter.x < Width)
-                shooter.translate(5, 0);
-                break;
-            case KeyEvent.VK_UP:
-                if (shooter.y > 0)
-                shooter.translate(0, -5);
-                break;
-            case KeyEvent.VK_DOWN:
-                if (shooter.y < Height)
-                shooter.translate(0, 5);
-                break;
+        
+        int code = e.getKeyCode();
+        if (code == KeyEvent.VK_D) {
+            Main.gameData.addDragon();
         }
-    
+        
+        if (code == KeyEvent.VK_LEFT) {
+            if (shooter.x > Main.WIN_WIDTH - 20) {
+                shooter.x = Main.WIN_WIDTH - 21;
+            }
+            shooter.dx = -5;
+        } else if (code == KeyEvent.VK_RIGHT) {
+            if (shooter.x < 20) 
+            {
+                shooter.x = 21;
+            }
+            shooter.dx = 5;
+        } else if (code == KeyEvent.VK_UP) {
+            if (shooter.y > Main.WIN_HEIGHT - 80) {
+                shooter.y = Main.WIN_HEIGHT - 81;
+            }
+            shooter.dy = -5;
+        } else if (code == KeyEvent.VK_DOWN) {
+            if (shooter.y < 0) {
+                shooter.y = 1;
+            }
+            shooter.dy = 5;
+        }
     }
 }

@@ -19,7 +19,7 @@ public class HealthLevel {
      public int   healthBarBlockH;
 
       public int  healthBarGap = 5;
-      public int healthCount=5;
+      public int healthCount = 5;
       
 HealthLevel(){
     healthBarX = 15;

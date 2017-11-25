@@ -88,10 +88,5 @@ public class Bomb extends GameFigure {
         return new Rectangle2D.Float(x - radius, y - radius, radius * 2, radius * 2);
     }
 
-    @Override
-    public void declareState() {
-        state = GameFigureState.BOMB_STATE_EXPLODE;
-    }
-
     
 }

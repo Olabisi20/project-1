@@ -16,6 +16,8 @@ public class GameData {
     private final int RADIUS = 6;
     public final  List<GameFigure> enemyFigures;
     public final List<GameFigure> friendFigures;
+    public List<GameFigure> removeFriendFigures;
+    public List<GameFigure> removeEnemyFigures;
     public Color [] color;
     public static Shooter shooter;
     public Menu menu;
@@ -27,6 +29,8 @@ public class GameData {
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
         friendFigures = new CopyOnWriteArrayList<>();
+        removeFriendFigures = new CopyOnWriteArrayList<>();
+        removeEnemyFigures = new CopyOnWriteArrayList<>();
         menu= new Menu();
         bar= new HealthLevel();
         scoreBoard = new Score();
@@ -40,6 +44,19 @@ public class GameData {
       
       //enemyFigures.add(new FlyingSaucer(50, 60));
         //enemyFigures.add(new FlyingSaucer(400, 20));
+    }
+    
+    public void loseHealth() {
+        shooter.isHit = true;
+        bar.healthCount--;
+        System.out.println("health: " + bar.healthCount);
+        
+        
+    }
+    
+    public void addDragon() {
+        System.out.println("add dragon");
+        enemyFigures.add(new Dragon(100, 100));
     }
     
     public void addEnemy() {
@@ -61,7 +78,7 @@ public class GameData {
                     enemyFigures.add(new FlyingSaucer(rx, ry));
                     int rx = rand.nextInt(Main.WIN_WIDTH);
                    enemyFigures.add(new Dragon(rx, r2y));
-                   System.out.print("add Dragon");
+//                   System.out.print("add Dragon");
                     tick = 0;
                     
                 }
@@ -91,44 +108,28 @@ public class GameData {
                     new Color(red, green, blue)));
         }
     }
-public void addUFO(){
+    
+    public void addUFO(){
     
         enemyFigures.add(new FlyingSaucer((int)(Math.random()*GamePanel.width),
                 (int)(Math.random()*GamePanel.height)));
     }
-public void addDragon(){
-        enemyFigures.add(new Dragon((int) (Math.random() * GamePanel.WIDTH),
-        (int)(Math.random()* GamePanel.height)));
-}
-    public void update() {
-        // no enemy is removed in the program
-        // since collision detection is not implemented yet.
-        // However, if collision detected, simply set
-        // f.state = GameFigure.STATE_DONE
-        ArrayList<GameFigure> removeEnemies = new ArrayList<>();
-        GameFigure f;
-        for (int i = 0; i < enemyFigures.size(); i++) {
-            f = enemyFigures.get(i);
-            if (f.state == GameFigureState.STATE_DONE) {
-                removeEnemies.add(f);
-                shooter.addScore();
-            }
-        }
-        enemyFigures.removeAll(removeEnemies);
 
+
+
+    public void update() {
+        GameFigure f;
+        
+        
+        
+        enemyFigures.removeAll(removeEnemyFigures);
+        
         for (GameFigure g : enemyFigures) {
             g.update();
         }
- 
-        // missiles are removed if explosion is done
-        ArrayList<GameFigure> removeFriends = new ArrayList<>();
-        for (int i = 0; i < friendFigures.size(); i++) {
-            f = friendFigures.get(i);
-            if (f.state == GameFigureState.STATE_DONE) {
-                removeFriends.add(f);
-            }
-        }
-        friendFigures.removeAll(removeFriends);
+
+        
+        friendFigures.removeAll(removeFriendFigures);
 
         for (GameFigure g : friendFigures) {
             g.update();

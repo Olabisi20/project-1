@@ -41,6 +41,7 @@ public class GamePanel extends JPanel {
             Main.gameData.menu.render(g2);
             Main.gameData.bar.render(g2);
             Main.gameData.scoreBoard.render(g2);
+            
             for (GameFigure f : Main.gameData.enemyFigures) {
                 f.render(g2);
             }
