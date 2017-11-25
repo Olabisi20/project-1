@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -32,25 +33,49 @@ public class FlyingSaucer extends GameFigure {
 
     @Override
     public void render(Graphics2D g) {
-        g.drawImage(image, (int) super.x, (int) super.y,
+        g.drawImage(image, (int) super.x , (int) super.y,
                 WIDTH, HEIGHT, null);
     }
 
     @Override
     public void update() {
-        if (direction > 0) {
+        if(state == GameFigureState.UFO_STATE_APPEARED){
+            
+            if (direction > 0) {
             // moving to the right
             super.x += UNIT_TRAVEL;
-            if (super.x + WIDTH > GamePanel.width) {
+                if (super.x + WIDTH > GamePanel.width) {
                 direction = -1;
-            }
-        } else {
+                }
+            } 
+            else {
             // moving to the left
             super.x -= UNIT_TRAVEL;
-            if (super.x <= 0) {
+                if (super.x <= 0) {
                 direction = 1;
+                }
+            }
+        }
+        else if (state == GameFigureState.UFO_STATE_DAMAGED){
+          
+          if(super.y - 5.0F > -6.0F){
+              
+              y += 5;
+            }
+           if(super.y >= GamePanel.height - HEIGHT ){
+                state = GameFigureState.STATE_DONE;
+                //System.out.print("flying saucer is done");
             }
         }
     }
+     @Override
+    public void declareState() {
+        state = GameFigureState.UFO_STATE_DAMAGED;
+    }
+ public Rectangle2D getCollisionBox(){
+        return new Rectangle2D.Float(x - (float)WIDTH/2, y - (float)HEIGHT/2, (float)WIDTH, (float)HEIGHT);
+    }
 
+   
+ 
 }

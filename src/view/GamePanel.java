@@ -32,12 +32,15 @@ public class GamePanel extends JPanel {
                 g2 = (Graphics2D) dbImage.getGraphics();
             }
         }
+        
 
         g2.clearRect(0, 0, width, height);
         g2.setBackground(Color.BLACK);
-
+           
         if (Main.animator.running) {
-
+            Main.gameData.menu.render(g2);
+            Main.gameData.bar.render(g2);
+            Main.gameData.scoreBoard.render(g2);
             for (GameFigure f : Main.gameData.enemyFigures) {
                 f.render(g2);
             }

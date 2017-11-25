@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class Missile extends GameFigure {
 
@@ -82,5 +83,15 @@ public class Missile extends GameFigure {
             }
         }
     }
+     @Override
+    public void declareState() {
+        state = GameFigureState.STATE_DONE;
+    }
+ public Rectangle2D getCollisionBox()
+    {
+        return new Rectangle2D.Float(x - size / 2, y - size / 2, size, size);
+    }
 
+   
+ 
 }

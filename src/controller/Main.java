@@ -15,13 +15,14 @@ public class Main {
     public static int WIN_HEIGHT = 500;
 
     public static void main(String[] args) {
-
+           
+        
         animator = new Animator();
         gameData = new GameData();
         gamePanel = new GamePanel();
-
+        
         JFrame game = new MainWindow();
-        game.setTitle("MVC Game Framework");
+        game.setTitle("p8 Olabisi Kadri");
         game.setSize(WIN_WIDTH, WIN_HEIGHT);
         game.setLocation(100, 0);
         game.setResizable(false); // window size cannot change
@@ -30,6 +31,6 @@ public class Main {
 
         // start animation
         new Thread(animator).start();
-
+        
     }
 }
