@@ -3,6 +3,7 @@ package model;
 import controller.Main;
 import view.GamePanel;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Timer;
+//import javax.swing.Timer;
 
 public class GameData {
     public Score scoreBoard;
@@ -24,7 +26,8 @@ public class GameData {
     public HealthLevel bar;
     private int tick = 0;
     private Random rand = new Random();
-    
+   // private Timer timer;
+    private ActionListener perform;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
@@ -34,24 +37,19 @@ public class GameData {
         menu= new Menu();
         bar= new HealthLevel();
         scoreBoard = new Score();
+        //timer = new Timer(1000, perform);
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
         shooter = new Shooter(Main.WIN_WIDTH / 2, Main.WIN_HEIGHT - 80);
         shooter.addObserver(scoreBoard);
         friendFigures.add(shooter);
-         color= new Color[3];
+        
+       // friendFigures.add(cannon);
+
       
       //enemyFigures.add(new FlyingSaucer(50, 60));
         //enemyFigures.add(new FlyingSaucer(400, 20));
-    }
-    
-    public void loseHealth() {
-        shooter.isHit = true;
-        bar.healthCount--;
-        System.out.println("health: " + bar.healthCount);
-        
-        
     }
     
     public void addDragon() {
@@ -59,26 +57,44 @@ public class GameData {
         enemyFigures.add(new Dragon(100, 100));
     }
     
+  //  public void addEnemy() {
+//        int rx = rand.nextInt(Main.WIN_WIDTH);
+//        int ry = rand.nextInt(Main.WIN_HEIGHT - 300);
+//        int ry2= rand.nextInt(Main.WIN_HEIGHT-100);
+//        enemyFigures.add(new Dragon(rx, ry2));
+//        enemyFigures.add(new FlyingSaucer(rx, ry2));
+//            enemyFigures.add(new Bomb(
+//     (int) (Math.random() * GamePanel.width),
+//     (int) (Math.random() * GamePanel.height), 10,
+//      Color.PINK));
+//    }
+    
     public void addEnemy() {
-        int rx = rand.nextInt(Main.WIN_WIDTH);
-        int ry = rand.nextInt(Main.WIN_HEIGHT - 300);
-        int r2y= rand.nextInt(Main.WIN_HEIGHT-100);
+     
         
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
             public void run() {
                 tick++;
                 if (tick == 5) {
+                   int rx = rand.nextInt(Main.WIN_WIDTH);
                    // enemyFigures.add(new Dragon(rx, r2y));
                    enemyFigures.add(new Bomb(
                     (int) (Math.random() * GamePanel.width),
                     (int) (Math.random() * GamePanel.height), 10,
                      Color.PINK));
+                }
                     //new Color(red, green, blue)));*/
-                    enemyFigures.add(new FlyingSaucer(rx, ry));
+                    if (tick == 7){
                     int rx = rand.nextInt(Main.WIN_WIDTH);
+                    int ry2= rand.nextInt(Main.WIN_HEIGHT);
+                    enemyFigures.add(new FlyingSaucer(rx, ry2));
+                    }
+                    if (tick == 10){
+                    int rx = rand.nextInt(Main.WIN_WIDTH);
+                    int r2y = rand.nextInt(Main.WIN_HEIGHT);
                    enemyFigures.add(new Dragon(rx, r2y));
-//                   System.out.print("add Dragon");
+                    
                     tick = 0;
                     
                 }

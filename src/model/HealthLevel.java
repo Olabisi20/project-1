@@ -22,7 +22,7 @@ public class HealthLevel {
       public int healthCount = 5;
       
 HealthLevel(){
-    healthBarX = 15;
+        healthBarX = 15;
         healthBarY = 15;
 
         healthTextX = 50;
@@ -38,7 +38,7 @@ HealthLevel(){
     public void render(Graphics2D g){
         g.setColor(Color.BLUE);
         if(Main.animator.startGame){
-        for (int i = 0; i < healthCount; ++i) {
+        for (int i = 0; i < healthCount; i++) {
             g.fillRect(healthBarX + ((healthBarBlockW + healthBarGap) * i) , healthBarY, healthBarBlockW, healthBarBlockH);
         }
         }

@@ -22,11 +22,12 @@ public class Dragon extends GameFigure{
     private int width;
     private int height;
     private BufferedImage reduceImage;
-    private int direction = -1; // +1: to the right; -1 to the left
-    public State myState = new AliveState();
+    public int direction = -1; // +1: to the right; -1 to the left
+    public State myState = new DragonAliveState();
     public int health = 5;
     public boolean isHit = false;
     public boolean isAngry = false;
+    
     
     public float dx;
     public float dy;
@@ -74,10 +75,11 @@ public class Dragon extends GameFigure{
     
     @Override
     public void update() {
-        if (health < 0) {
+        
+        if (health <= 0) {
                 setState(new DeathState());
                 myState.doAction(this);
-                shoot.isHit = false;
+                shoot.isHit = true;
         }
         
         if (!isAngry) {
@@ -103,10 +105,24 @@ public class Dragon extends GameFigure{
             super.x += dx;
             super.y += dy;
             
+        /* for (GameFigure ff : Main.gameData.friendFigures) {
+           for (GameFigure ef : Main.gameData.enemyFigures) {
+             if (ef instanceof Dragon){
+                       Dragon d = (Dragon) ef;
+                       if ( ff instanceof Shooter){
+                           Shooter s = (Shooter) ff;
+                           if (d.getCollisionBox().intersects(s.getCollisionBox()));
+                          
+                          Main.gameData.bar.healthCount--;
+                          s.setState(new ShooterAppearState());
+                       }
+                   }
+            
             
         }
             
-    }
+    }*/
+        }}
     
 
  public Rectangle2D getCollisionBox(){
@@ -117,4 +133,3 @@ public class Dragon extends GameFigure{
  
  
 }
-

@@ -41,6 +41,8 @@ public class KeyController extends KeyAdapter {
                 shooter.y = 1;
             }
             shooter.dy = 5;
+        } else if (code == KeyEvent.VK_U) {
+            Main.gameData.shooter.ultimate();
         }
     }
 }

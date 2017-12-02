@@ -14,11 +14,11 @@ public class Shooter extends GameFigure implements CollisionBox {
     
     Line2D.Float barrel;
     Rectangle2D.Float base;
-    private final int BARREL_LEN = 20;
-    private final int BASE_SIZE = 20;
+    public final int BARREL_LEN = 20;
+    public final int BASE_SIZE = 20;
     public List<Observer> observers= new ArrayList<>(); 
     public int score = 0;
-    public HealthLevel level;
+  //  public HealthLevel level;
         
     public int dx;
     public int dy;
@@ -26,7 +26,7 @@ public class Shooter extends GameFigure implements CollisionBox {
     
     public Shooter(int x, int y) {
         super(x, y);
-        super.state = GameFigureState.SHOOTER_STATE_HEALTH_LEVEL_5;
+        myState = new ShooterAppearState();
         barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);
@@ -63,38 +63,21 @@ public class Shooter extends GameFigure implements CollisionBox {
         g.draw(barrel);
         g.draw(base);
     }
+    
+    public void ultimate() {
+        for (int i = 0; i < 7; ++i) {
+            Main.gameData.friendFigures.add(new Fireball(100 * i, -20*(i)));
+        }
+    }
+    
+    @Override
+    public void setState(State s) {
+        myState = s;
+    }
 
     @Override
     public void update() {
-        if (super.x < 20) {
-            if (super.y < 0) {
-                dy = 0;
-            } else if (super.y > Main.WIN_HEIGHT - 80) {
-                dy = 0;
-            }            
-            dx = 0;
-        } else if (super.x > Main.WIN_WIDTH - BASE_SIZE) {
-            if (super.y < 0) {
-                dy = 0;
-            } else if (super.y > Main.WIN_HEIGHT - 80) {
-                dy = 0;
-            }
-            dx = 0;
-        } else if (super.y < 0) {
-                dy = 0;
-            } else if (super.y > Main.WIN_HEIGHT - 80) {
-                dy = 0;
-        }
-          
-        
-        barrel.x1 += dx;
-        barrel.x2 += dx;
-        barrel.y1 += dy;
-        barrel.y2 += dy;
-        super.x = barrel.x1;
-        super.y = barrel.y1;
-        base.x += dx;
-        base.y += dy;
+        myState.doAction(this);
     }
 
 //    public void translate(int dx, int dy) {

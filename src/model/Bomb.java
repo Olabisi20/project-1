@@ -10,19 +10,24 @@ import java.awt.geom.Rectangle2D;
 public class Bomb extends GameFigure {
 
 
-    private final Color color;
-    private int radius;
-    private int dx = 3;
-    private int dy = 3;
-    private boolean exploding = true;
+    public final Color color;
+    public int radius;
+    public int dx = 3;
+    public int dy = 3;
+    public boolean exploding = true;
   
 
     public Bomb(float x, float y, int radius, Color color) {
         super(x, y);
-        super.state = GameFigureState.BOMB_STATE_ADDED;
+        myState = new BombAppearState();
         this.radius = radius;
         this.color = color;
       
+    }
+    
+    @Override
+    public void setState(State s) {
+        myState = s;
     }
     
     @Override
@@ -35,53 +40,32 @@ public class Bomb extends GameFigure {
 
     @Override
     public void update() {
-        // ball bounces on the wall
-        
-        if(state == GameFigureState.BOMB_STATE_ADDED){
-            super.x += dx;
-            super.y += dy;
-
-            if (super.x + radius > GamePanel.width) {
-                dx = -dx;
-                super.x = GamePanel.width - radius;
-            } 
-            else if (super.x - radius < 0) {
-                dx = -dx;
-                super.x = radius;
-            }
-
-            if (super.y + radius > GamePanel.height) {
-                dy = -dy;
-                super.y = GamePanel.height - radius;
-            } 
-            else if (super.y - radius < 0) {
-                dy = -dy;
-                super.y = radius;
-            }
-        }
-        else if(state == GameFigureState.BOMB_STATE_EXPLODE){
-           
-            if(exploding == true){
-                if(radius < 25){
-                radius += 3;
-                }
-                else{
-                    exploding = false;
-                }
-            }
-            else if(exploding == false){
-                if (radius >= 0){
-                    radius -= 2;
-                    if (radius <= 0){
-                        state = GameFigureState.STATE_DONE;
-                    }
-                }    
-            }
-
-        }
-        
-
+        myState.doAction(this);
     }
+
+    public void updateLocation() {
+        x+= dx;
+        y+=dy;
+        //System.out.println("updating location");
+       if (x + radius > GamePanel.width) {
+            dx = -dx;
+            x = GamePanel.width - radius;
+        } 
+       else if (x - radius < 0) {
+        dx = -dx;
+            x = radius;
+        }
+        if (y + radius > GamePanel.height) {
+            dy = -dy;
+            y = GamePanel.height - radius;
+        } 
+        else if (y - radius < 0) {
+           dy = -dy;
+           y = radius;
+        }
+             
+    }
+    
 
     @Override
     public Rectangle2D getCollisionBox() {

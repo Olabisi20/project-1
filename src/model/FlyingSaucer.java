@@ -10,23 +10,21 @@ import view.GamePanel;
 
 public class FlyingSaucer extends GameFigure {
 
-    private final int WIDTH = 50;
-    private final int HEIGHT = 20;
-    private final int UNIT_TRAVEL = 5; // per frame
-    private Image image;
+    public final int WIDTH = 50;
+    public final int HEIGHT = 20;
+    public final int UNIT_TRAVEL = 5; // per frame
+    public Image image;
 
-    private int direction = 1; // +1: to the right; -1 to the left
+    public int direction = 1; // +1: to the right; -1 to the left
 
     public FlyingSaucer(float x, float y) {
         super(x, y); // origin: upper-left corner
-        super.state = GameFigureState.UFO_STATE_APPEARED;
-
-        image = null;
+        myState = new UFOAppearState();
 
         try {
             image = ImageIO.read(getClass().getResource("ufo.png"));
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
+            JOptionPane.showMessageDialog(null, "Error: Cannot open ufo.png");
             System.exit(-1);
         }
     }
@@ -36,37 +34,43 @@ public class FlyingSaucer extends GameFigure {
         g.drawImage(image, (int) super.x , (int) super.y,
                 WIDTH, HEIGHT, null);
     }
+    
+    @Override
+    public void setState(State s) {
+        myState = s;
+    }
 
     @Override
     public void update() {
-        if(state == GameFigureState.UFO_STATE_APPEARED){
-            
-            if (direction > 0) {
-            // moving to the right
-            super.x += UNIT_TRAVEL;
-                if (super.x + WIDTH > GamePanel.width) {
-                direction = -1;
-                }
-            } 
-            else {
-            // moving to the left
-            super.x -= UNIT_TRAVEL;
-                if (super.x <= 0) {
-                direction = 1;
-                }
-            }
-        }
-        else if (state == GameFigureState.UFO_STATE_DAMAGED){
-          
-          if(super.y - 5.0F > -6.0F){
-              
-              y += 5;
-            }
-           if(super.y >= GamePanel.height - HEIGHT ){
-                state = GameFigureState.STATE_DONE;
-                //System.out.print("flying saucer is done");
-            }
-        }
+        myState.doAction(this);
+//        if(state == GameFigureState.UFO_STATE_APPEARED){
+//            
+//            if (direction > 0) {
+//            // moving to the right
+//            super.x += UNIT_TRAVEL;
+//                if (super.x + WIDTH > GamePanel.width) {
+//                direction = -1;
+//                }
+//            } 
+//            else {
+//            // moving to the left
+//            super.x -= UNIT_TRAVEL;
+//                if (super.x <= 0) {
+//                direction = 1;
+//                }
+//            }
+//        }
+//        else if (state == GameFigureState.UFO_STATE_DAMAGED){
+//          
+//          if(super.y - 5.0F > -6.0F){
+//              
+//              y += 5;
+//            }
+//           if(super.y >= GamePanel.height - HEIGHT ){
+//                state = GameFigureState.STATE_DONE;
+//                //System.out.print("flying saucer is done");
+//            }
+//        }
     }
 
  public Rectangle2D getCollisionBox(){

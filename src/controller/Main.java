@@ -26,7 +26,7 @@ public class Main {
         gamePanel = new GamePanel();
         
         JFrame game = new MainWindow();
-        game.setTitle("p8 Olabisi Kadri");
+        game.setTitle("OlabisiK Term_Project");
         game.setSize(WIN_WIDTH, WIN_HEIGHT);
         game.setLocation(100, 0);
         game.setResizable(false); // window size cannot change

@@ -1,6 +1,6 @@
 package model;
 
-public class AngryState implements State {
+public class DragonAngryState implements State {
 
     @Override
     public void doAction(GameFigure gf) {

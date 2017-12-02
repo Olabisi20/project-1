@@ -14,7 +14,7 @@ public class Missile extends GameFigure {
     private static final int MAX_EXPLOSION_SIZE = 50;
     private float dx; // displacement at each frame
     private float dy; // displacement at each frame
-
+    
     // public properties for quick access
     public Color color;
     public Point2D.Float target;
@@ -22,8 +22,8 @@ public class Missile extends GameFigure {
     private static final int UNIT_TRAVEL_DISTANCE = 4; // per frame move
 
     private int size = SIZE;
-    public State myState = new AliveState();
     
+       MissileImplementator m;
     /**
      *
      * @param sx start x of the missile
