@@ -10,7 +10,6 @@ private boolean exploding = false;
             b.radius += 3;
             } else if (b.radius > 24) {
                 b.setState(new DeathState());
-                b.myState.doAction(b);
             }
             
             

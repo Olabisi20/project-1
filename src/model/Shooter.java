@@ -4,11 +4,14 @@ import controller.Main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import view.MainWindow;
+import javax.swing.Timer;
 
 public class Shooter extends GameFigure implements CollisionBox {
     
@@ -18,8 +21,9 @@ public class Shooter extends GameFigure implements CollisionBox {
     public final int BASE_SIZE = 20;
     public List<Observer> observers= new ArrayList<>(); 
     public int score = 0;
-  //  public HealthLevel level;
-        
+    public HealthLevel healthBar = new HealthLevel();
+    public Timer timer;
+    
     public int dx;
     public int dy;
     public boolean isHit = false;
@@ -30,6 +34,15 @@ public class Shooter extends GameFigure implements CollisionBox {
         barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);
+        
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isHit) {
+                    isHit = false;
+                }
+            }
+        });
     }
     
     public void addObserver(Observer o){
@@ -49,6 +62,7 @@ public class Shooter extends GameFigure implements CollisionBox {
 
     @Override
     public void render(Graphics2D g) {
+        healthBar.render(g);
         g.setColor(Color.YELLOW);
         int tx = MainWindow.mouseController.x;
         int ty = MainWindow.mouseController.y;
@@ -62,6 +76,8 @@ public class Shooter extends GameFigure implements CollisionBox {
         g.setStroke(new BasicStroke(7)); // thickness of the line
         g.draw(barrel);
         g.draw(base);
+//        g.setColor(Color.RED);
+//        g.draw(new Rectangle2D.Float(base.x, base.y, 20, 20));
     }
     
     public void ultimate() {

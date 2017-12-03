@@ -43,6 +43,10 @@ public class KeyController extends KeyAdapter {
             shooter.dy = 5;
         } else if (code == KeyEvent.VK_U) {
             Main.gameData.shooter.ultimate();
+        } else if (code == KeyEvent.VK_9) {
+            Main.gameData.addBomb(1);
+        } else if (code == KeyEvent.VK_8) {
+            Main.gameData.addEnemy();
         }
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import controller.Main;
+
 public class DragonAngryState implements State {
 
     @Override
@@ -11,7 +13,11 @@ public class DragonAngryState implements State {
                 dragon.health--;
                 dragon.isHit = true;
             }
-            System.out.println(dragon.health);
+            
+            if (dragon.health <= 0) {
+                Main.gameData.shooter.isHit = false;
+                dragon.setState(new DeathState());
+            }
         }
     }
 

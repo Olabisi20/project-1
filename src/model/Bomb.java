@@ -36,6 +36,8 @@ public class Bomb extends GameFigure {
         // Note: use drawOval() to draw outline only
         g.fillOval((int)(x - radius), (int)(y - radius), 
                 radius * 2, radius * 2);
+        
+//        g.draw(new Rectangle2D.Float(x - radius, y - radius, radius * 2, radius * 2));
     }
 
     @Override

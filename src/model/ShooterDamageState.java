@@ -17,9 +17,9 @@ public class ShooterDamageState implements State {
 //            shooter.setState(new ShooterAppearState());
 //        }
         
-      if (Main.gameData.bar.healthCount < 1) {
-          Main.animator.startGame = false;
-      }
+//      if (Main.gameData.bar.healthCount < 1) {
+//          Main.animator.startGame = false;
+//      }
         
         
         

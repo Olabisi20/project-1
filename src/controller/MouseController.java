@@ -28,6 +28,11 @@ public class MouseController extends MouseAdapter {
            //     count++;
            Main.animator.startGame=true;
            Main.gameData.addEnemy();
+           Main.gameData.shooter.healthBar.healthCount = 5;
+           Main.gameData.enemyFigures.clear();
+           Main.gameData.scoreBoard.score = 0;
+           Main.gameData.addEnemyTimer.start();
+           
             }
            if( x >Main.WIN_WIDTH/2-(buttonWidth/2)&& 
                     x < Main.WIN_WIDTH/2-(buttonWidth/2)+ buttonWidth &&
@@ -46,7 +51,7 @@ public class MouseController extends MouseAdapter {
                 x, y, // target location where the missile explodes
                 Color.RED);
 
-        Main.gameData.friendFigures.add(m);
+        Main.gameData.friendFigures.add(m.getMissile());
 
     }
     
