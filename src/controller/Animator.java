@@ -108,7 +108,6 @@ public class Animator implements Runnable {
                    if (ef instanceof FlyingSaucer) {
                        FlyingSaucer fs = (FlyingSaucer) ef;
                        ef.setState(new UFODamageState());
-                       System.out.println("hit flying saucer");
                    }
                
                    if (ef instanceof Bomb) {

@@ -39,7 +39,7 @@ public class SquareMissile extends GameFigure implements MissileImplementor {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.GREEN);
+        g.setColor(Color.BLUE);
         g.setStroke(new BasicStroke(2)); // thickness of the line
         g.draw(new Rectangle2D.Float((int) (super.x - size / 2),
                 (int) (super.y - size / 2),

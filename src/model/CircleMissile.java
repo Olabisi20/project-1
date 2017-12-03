@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class CircleMissile extends GameFigure implements MissileImplementor {
-    // missile size
+    // missile sizeircleMissile exte
     private static final int SIZE = 5;
     private static final int MAX_EXPLOSION_SIZE = 50;
     private float dx; // displacement at each frame
